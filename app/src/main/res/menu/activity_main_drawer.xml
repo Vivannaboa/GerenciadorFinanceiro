@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_conta"
+            android:icon="@mipmap/ic_launcher_conta"
+            android:title="@string/lbl_conta" />
+        <item
+            android:id="@+id/nav_lancamentos"
+            android:icon="@mipmap/ic_launcher_lacamentos"
+            android:title="@string/lbl_lancamento" />
+        <item
+            android:id="@+id/nav_Centro_de_custo"
+            android:icon="@mipmap/ic_launcher"
+            android:title="@string/lbl_centro_de_custo" />
+        <!--<item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"-->
+        <!--android:title="Slideshow" />-->
+        <!--<item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"-->
+        <!--android:title="Tools" />-->
+    </group>
+
+    <!--<item android:title="Communicate">
+        <menu>
+            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
+                android:title="Share" />
+            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>-->
+
+</menu>

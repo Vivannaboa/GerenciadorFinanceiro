@@ -1,0 +1,31 @@
+<resources>
+
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on Large screens.
+
+    For more on layout aliases, see:
+    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+    <item name="fragment_conta2" type="layout">@layout/fragment_conta_list</item>
+
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on Large screens.
+
+    For more on layout aliases, see:
+    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+    <item name="fragment_lancamento" type="layout">@layout/fragment_movimentacao_list</item>
+
+    <!--
+    Layout alias to replace the single-pane version of the layout with a
+    two-pane version on Large screens.
+
+    For more on layout aliases, see:
+    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
+    -->
+    <item name="fragment_centrocusto" type="layout">@layout/fragment_centrocusto_list</item>
+
+
+</resources>

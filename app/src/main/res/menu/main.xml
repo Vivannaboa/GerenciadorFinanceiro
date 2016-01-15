@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/miCompose"
+        android:icon="@android:drawable/ic_btn_speak_now"
+        app:showAsAction="ifRoom"
+        android:title="Compose">
+    </item>
+    <item
+        android:id="@+id/miProfile"
+        android:icon="@android:drawable/ic_dialog_alert"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="Profile">
+    </item>
+
+</menu>

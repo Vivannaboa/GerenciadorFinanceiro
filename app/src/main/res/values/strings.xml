@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Gerenciador Financeiro</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="item_1">First Item</string>
+    <string name="item_2">Second Item</string>
+    <string name="cd_logo">logo</string>
+    <string name="open">open navigation drawer</string>
+    <string name="close">close navigation drawer</string>
+    <string name="lbl_conta">Conta</string>
+    <string name="lbl_lancamento">Lançamentos</string>
+    <string name="lbl_centro_de_custo">Centro de custo</string>
+
+
+    <string name="lista_produtos">Lista de Produtos</string>
+    <string name="detalhes_produto">Detalhes do Produto</string>
+    <string name="dados_produto">Prod.: %1$s - %2$s em estoque - R$ %3$s</string>
+    <string name="voltar">Voltar</string>
+    <string name="nome_conta">Nome</string>
+    <string name="numero_conta">Número</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="valor">Valor</string>
+    <string name="descricao">Descrição</string>
+    <string name="centro_de_custo">Centro de custo</string>
+    <string name="tipo">Tipo</string>
+    <string name="conta">Conta</string>
+    <string name="ativo">Ativo</string>
+</resources>
