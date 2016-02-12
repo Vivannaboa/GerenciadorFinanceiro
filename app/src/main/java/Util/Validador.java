@@ -12,10 +12,11 @@ public class Validador {
     public static boolean validateNotNull(View pView, String pMessage) {
         if (pView instanceof EditText) {
             EditText edText = (EditText) pView;
+            String teste;
             Editable text = edText.getText();
             if (text != null) {
                 String strText = text.toString();
-                if (!TextUtils.isEmpty(strText)) {
+                if (!TextUtils.isEmpty(strText)) { //oi
                     return true;
                 }
             }
