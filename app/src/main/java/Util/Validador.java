@@ -15,7 +15,7 @@ public class Validador {
             Editable text = edText.getText();
             if (text != null) {
                 String strText = text.toString();
-                if (!TextUtils.isEmpty(strText)) {
+                if (!TextUtils.isEmpty(strText)) {// tchau
                     return true;
                 }
             }
