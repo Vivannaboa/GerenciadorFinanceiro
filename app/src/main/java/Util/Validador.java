@@ -8,6 +8,7 @@ import android.widget.EditText;
 /**
  * Created by vivan on 04/11/15.
  */
+//Teste
 public class Validador {
     public static boolean validateNotNull(View pView, String pMessage) {
         if (pView instanceof EditText) {
