@@ -18,14 +18,6 @@ public class Conta {
         this.saldo = 0.0;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -54,5 +46,13 @@ public class Conta {
 
     public String toString() {
         return this.getNome() +" - " + getSaldo();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

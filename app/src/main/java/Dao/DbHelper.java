@@ -12,16 +12,14 @@ import java.util.List;
 
 import Entities.Conta;
 
-import static DataModel.DataModel.criaTabelaCentroDeCusto;
-import static DataModel.DataModel.criaTabelaMovimentacao;
-import static DataModel.DataModel.criarTabelaConta;
+import static DataModel.DataModel.*;
 
 /**
  * Created by vivan on 02/11/15.
  */
 public class DbHelper extends SQLiteOpenHelper {
     private static final String NOME_BASE = "GerenciadorFinanceiro";
-    private static final int VERSAO_BASE = 14;
+    private static final int VERSAO_BASE = 27;
 
     public DbHelper(Context context) {
         super(context, NOME_BASE, null, VERSAO_BASE);
@@ -35,13 +33,32 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(criarTabelaConta());
         db.execSQL(criaTabelaCentroDeCusto());
         db.execSQL(criaTabelaMovimentacao());
+        db.execSQL(criaTabelaBairro());
+        db.execSQL(criaTabelaCidade());
+        db.execSQL(criaTabelaPais());
+        db.execSQL(criaTabelaLogradouro());
+        db.execSQL(criaTabelaPessoa());
+        db.execSQL(criaTabelaPessoaFisica());
+        db.execSQL(criaTabelaPessoaJuridica());
+        db.execSQL(criaTabelaTelefone());
+        db.execSQL(criaTabelaEndereco());
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("Drop table Conta");
-        db.execSQL("Drop table movimentacao");
-        db.execSQL("Drop table centrodecusto");
+        db.execSQL("Drop table Movimentacao");
+        db.execSQL("Drop table Centrodecusto");
+        db.execSQL("Drop table Bairro");
+        db.execSQL("Drop table Cidade");
+        db.execSQL("Drop table Logradouro");
+        db.execSQL("Drop table Endereco");
+        db.execSQL("Drop table Pais");
+        db.execSQL("Drop table Pessoa");
+        db.execSQL("Drop table Pessoa_juridica");
+        db.execSQL("Drop table Pessoa_fisica");
+        db.execSQL("Drop table Telefone");
         onCreate(db);
     }
 

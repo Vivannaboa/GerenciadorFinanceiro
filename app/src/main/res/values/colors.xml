@@ -21,4 +21,6 @@
     <color name="drawer_header_bg">@color/secondary</color>
     <color name="drawer_item_text_default">#bebebe</color>
     <color name="drawer_item_text_checked">@color/primary</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

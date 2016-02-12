@@ -29,7 +29,6 @@ public class CadastroConta extends Fragment {
     private View view;
     private static Conta CONTAATUALIZAR;
     private String mParam2="";
-
     private OnFragmentInteractionListener mListener;
 
        // para Atualizar um cadastro utilizei uma nova instancia
@@ -57,6 +56,7 @@ public class CadastroConta extends Fragment {
         }
 
     }
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,

@@ -19,8 +19,7 @@
         android:src="@drawable/ic_add_plus"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:id="@android:id/empty"

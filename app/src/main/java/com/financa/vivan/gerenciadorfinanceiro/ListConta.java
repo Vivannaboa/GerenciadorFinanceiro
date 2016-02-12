@@ -27,14 +27,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import Dao.ContaDao;
-import Dao.DbHelper;
 import Entities.Conta;
 
 public class ListConta extends Fragment {
@@ -50,7 +46,7 @@ public class ListConta extends Fragment {
         ContaDao contaDao = new ContaDao(getActivity());
         //Traz os dados do banco
         List<Conta> contas = contaDao.selectTodasAsContas();
-        contas.toArray();
+        contas.toArray().toString();
 
         view = inflater.inflate(R.layout.fragment_conta, container, false);
 
@@ -80,13 +76,13 @@ public class ListConta extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /* Intent it = new Intent(getActivity(), Cadastro_Conta.class);
-                startActivity(it);*/
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content, mCadastroConta)
-                        .addToBackStack(null)
-                        .commit();
+                 Intent it = new Intent(getActivity(), CadastroPessoa.class);
+                startActivity(it);
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.content, mCadastroConta)
+//                        .addToBackStack(null)
+//                        .commit();
 
             }
         });

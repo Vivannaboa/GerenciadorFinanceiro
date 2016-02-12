@@ -1,6 +1,9 @@
 package com.financa.vivan.gerenciadorfinanceiro;
 
+import android.annotation.TargetApi;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -24,19 +27,10 @@ import Entities.Conta;
 
 
 public class ListCentroCusto extends Fragment {
-
-
     private final CadastroCentroCusto mCadastroCentroCusto = new CadastroCentroCusto();
-
-
     private OnFragmentInteractionListener mListener;
-
-
     private AbsListView mListView;
     private ListAdapter mAdapter;
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,29 +63,26 @@ public class ListCentroCusto extends Fragment {
                                              }
                                          }
         );
-
-
         // Set OnItemClickListener so we can be notified on item clicks
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.content, mCadastroCentroCusto)
-                        .addToBackStack(null)
-                        .commit();
+                Intent it = new Intent(getActivity(), SecondActivity.class);
+                startActivity(it);
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.content, mCadastroCentroCusto)
+//                        .addToBackStack(null)
+//                        .commit();
 
 
             }
         });
-
-
         return view;
     }
-
-
     @Override
     public void onDetach() {
         super.onDetach();

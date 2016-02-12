@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_1">First Item</string>
     <string name="item_2">Second Item</string>
@@ -33,4 +33,27 @@
     <string name="tipo">Tipo</string>
     <string name="conta">Conta</string>
     <string name="ativo">Ativo</string>
+
+    <string name="title_activity_cadastro_pessoa">CadastroPessoa</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_cadastro_pessoa_min">CadastroPessoaMin</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="nome">Nome</string>
+    <string name="rua">Rua</string>
+    <string name="logradouro">Logradouro</string>
+    <string name="cpf">CPF</string>
+    <string name="rg">RG</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="ie">IE</string>
+    <string name="matheuzinho">Matheuzinho</string>
+    <string name="title_activity_cadastro_bairro">CadastroBairro</string>
+    <string name="Plus">+</string>
+    <string name="bairro">Bairro</string>
+    <string name="cidade">Cidade</string>
+    <string name="complemento">Complemento</string>
+    <string name="novo">Novo</string>
+    <string name="second_activity_text">teste de visualização de uma view</string>
+    <string name="title_activity_second">SecondActivity</string>
+
 </resources>
