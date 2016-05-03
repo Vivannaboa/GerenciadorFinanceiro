@@ -1,6 +1,5 @@
 package com.financa.vivan.gerenciadorfinanceiro;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,13 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import Dao.CentoDeCustoDao;
 import Dao.ContaDao;
-import Dao.DbHelper;
 import Dao.MovimentacaoDao;
 import Entities.CentroDeCusto;
 import Entities.Conta;
@@ -75,7 +72,7 @@ public class CadastroMovimentacao extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //recuperando objetos
-        view = inflater.inflate(R.layout.fragment_cadastrto_movimentacao, container, false);
+        view = inflater.inflate(R.layout.fragment_cadastro_movimentacao, container, false);
         edtValor =(EditText)view.findViewById(R.id.edtValor);
         edtDescricao=(EditText)view.findViewById(R.id.edtDescricao);
         spinnerCentroCusto=(Spinner)view.findViewById(R.id.spinnerCentroCusto);
@@ -86,8 +83,8 @@ public class CadastroMovimentacao extends Fragment {
 
 
         //conectando ao banco
-        final CentoDeCustoDao centoDeCustoDao = new CentoDeCustoDao(getActivity());
-        ContaDao contaDao =new ContaDao(getActivity());
+        final CentoDeCustoDao centoDeCustoDao =  CentoDeCustoDao.getInstance(getActivity());
+        ContaDao contaDao = ContaDao.getInstance(getActivity());
 
 
         //carregando spinner Centro de custo
@@ -141,21 +138,21 @@ public class CadastroMovimentacao extends Fragment {
                 if (mParam2.equals("Atualizar")) {
                     if (Validador.validateNotNull(edtDescricao, "A descrição deve ser informada!") && Validador.validateNotNull(edtValor, "O valor deve ser preenchido!")) {
                         try {
-                            ContaDao contaDao = new ContaDao(getActivity());
+                            ContaDao contaDao =  ContaDao.getInstance(getActivity());
                             Movimentacao movimentacao = new Movimentacao();
                             movimentacao.setValor(Double.parseDouble(edtValor.getText().toString()));
                             movimentacao.setDescricao(edtDescricao.getText().toString());
                             movimentacao.setCentroDeCusto(centroDeCusto);
                             movimentacao.setConta(conta);
-                            MovimentacaoDao movimentacaoDao = new MovimentacaoDao(getActivity());
-                            movimentacaoDao.updateMovimentacao(movimentacao, MOVIMENTACAO_ATUALIZAR.getId());
+                            MovimentacaoDao movimentacaoDao =  MovimentacaoDao.getInstance(getActivity());
+                            movimentacaoDao.updateMovimentacao(movimentacao);
                             if (centroDeCusto.getTipoTranzacao().equals("Saida")){
                                 //contaDao.updateConta();
                                 conta.sacar(Double.parseDouble(edtValor.getText().toString()));
-                                contaDao.updateConta(conta,conta.getId());
+                                contaDao.updateConta(conta);
                             }else{
                                 conta.depositar(Double.parseDouble(edtValor.getText().toString()));
-                                contaDao.updateConta(conta,conta.getId());
+                                contaDao.updateConta(conta);
                             }
                             edtDescricao.getText().clear();
                             edtValor.getText().clear();
@@ -171,20 +168,20 @@ public class CadastroMovimentacao extends Fragment {
                 } else {
                     if (Validador.validateNotNull(edtValor, "O valor deve ser preenchido!")) {
                         try {
-                            ContaDao contaDao = new ContaDao(getActivity());
+                            ContaDao contaDao =  ContaDao.getInstance(getActivity());
                             Movimentacao movimentacao = new Movimentacao();
                             movimentacao.setValor(Double.parseDouble(edtValor.getText().toString()));
                             movimentacao.setDescricao(edtDescricao.getText().toString());
                             movimentacao.setCentroDeCusto(centroDeCusto);
                             movimentacao.setConta(conta);
-                            MovimentacaoDao movimentacaoDao = new MovimentacaoDao(getActivity());
+                            MovimentacaoDao movimentacaoDao =  MovimentacaoDao.getInstance(getActivity());
                             movimentacaoDao.insertMovimentacao(movimentacao);
                             if (centroDeCusto.getTipoTranzacao().equals("Saida")){
                                 conta.sacar(Double.parseDouble(edtValor.getText().toString()));
-                                contaDao.updateConta(conta,conta.getId());
+                                contaDao.updateConta(conta);
                             }else{
                                 conta.depositar(Double.parseDouble(edtValor.getText().toString()));
-                                contaDao.updateConta(conta,conta.getId());
+                                contaDao.updateConta(conta);
                             }
                             edtDescricao.getText().clear();
                             edtValor.getText().clear();

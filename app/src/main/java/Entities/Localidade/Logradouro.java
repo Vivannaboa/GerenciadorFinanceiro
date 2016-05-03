@@ -7,6 +7,15 @@ public class Logradouro {
     private int idLogradouro;
     private String descricao;
 
+    public Logradouro(int idLogradouro,String descricao) {
+        this.descricao = descricao;
+        this.idLogradouro = idLogradouro;
+    }
+
+    public Logradouro() {
+    }
+
+
     public int getIdLogradouro() {
         return idLogradouro;
     }

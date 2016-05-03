@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,18 +32,19 @@ public class ListCentroCusto extends Fragment {
     private OnFragmentInteractionListener mListener;
     private AbsListView mListView;
     private ListAdapter mAdapter;
+    private View view;
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        CentoDeCustoDao centoDeCustoDao = new CentoDeCustoDao(getActivity());
+        CentoDeCustoDao centoDeCustoDao =  CentoDeCustoDao.getInstance(getActivity());
         //Traz os dados do banco
         List<CentroDeCusto> listCentoDeCustoDao = centoDeCustoDao.selectTodasAsCentroDeCustos();
         listCentoDeCustoDao.toArray();
-        // TODO: Change Adapter to display your content
         mAdapter = new ArrayAdapter<CentroDeCusto>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, listCentoDeCustoDao);
 
-        View view = inflater.inflate(R.layout.fragment_centrocusto, container, false);
+        view = inflater.inflate(R.layout.fragment_centrocusto_list, container, false);
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -52,7 +54,7 @@ public class ListCentroCusto extends Fragment {
                                              public void onItemClick(
                                                      AdapterView<?> arg0, View arg1, int arg2, long id) {
                                                  int count1 = 0;
-                                                 CentoDeCustoDao centoDeCustoDao = new CentoDeCustoDao(getActivity());
+                                                 CentoDeCustoDao centoDeCustoDao =  CentoDeCustoDao.getInstance(getActivity());
                                                  CentroDeCusto centoDeCusto;
                                                  centoDeCusto = centoDeCustoDao.getCentroDeCusto(arg2 + 1);
                                                  Fragment newFragment = new CadastroCentroCusto().newInstance(centoDeCusto, "Atualizar");
@@ -64,23 +66,20 @@ public class ListCentroCusto extends Fragment {
                                          }
         );
         // Set OnItemClickListener so we can be notified on item clicks
-
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = (android.support.design.widget.FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), SecondActivity.class);
                 startActivity(it);
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.content, mCadastroCentroCusto)
-//                        .addToBackStack(null)
-//                        .commit();
-
-
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, mCadastroCentroCusto)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
+
         return view;
     }
     @Override

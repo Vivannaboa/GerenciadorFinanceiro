@@ -27,8 +27,7 @@ import Util.Validador;
 
 
 public class CadastroCentroCusto extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -112,8 +111,9 @@ public class CadastroCentroCusto extends Fragment {
                         centroDeCusto.setDescricao(edtDescricao.getText().toString());
                         centroDeCusto.setTipoTranzacao(spinnerTipo.getSelectedItem().toString());
                         centroDeCusto.setAtivo(checkBoxAtivo.isChecked());
-                        CentoDeCustoDao dao = new CentoDeCustoDao(getActivity());
-                        dao.updateCentroDeCusto(centroDeCusto, CENTRODECUSTO_ATUALIZAR.getId());
+                        CentoDeCustoDao dao =  CentoDeCustoDao.getInstance(getActivity());
+                        dao.updateCentroDeCusto(centroDeCusto);
+                        //dao.fecharConexao();
                         edtDescricao.getText().clear();
                         spinnerTipo.setAdapter(null);
                         getFragmentManager().popBackStack();
@@ -130,7 +130,7 @@ public class CadastroCentroCusto extends Fragment {
                             centroDeCusto.setDescricao(edtDescricao.getText().toString());
                             centroDeCusto.setTipoTranzacao(spinnerTipo.getSelectedItem().toString());
                             centroDeCusto.setAtivo(checkBoxAtivo.isChecked());
-                            CentoDeCustoDao dao = new CentoDeCustoDao(getActivity());
+                            CentoDeCustoDao dao =  CentoDeCustoDao.getInstance(getActivity());
                             dao.insertCentroDeCusto(centroDeCusto);
                             edtDescricao.getText().clear();
                             spinnerTipo.setAdapter(null);

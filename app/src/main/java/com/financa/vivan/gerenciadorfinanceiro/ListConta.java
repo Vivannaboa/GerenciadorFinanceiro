@@ -43,9 +43,10 @@ public class ListConta extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         //Conexão com o banco
-        ContaDao contaDao = new ContaDao(getActivity());
+        ContaDao contaDao =  ContaDao.getInstance(getActivity().getBaseContext());
         //Traz os dados do banco
         List<Conta> contas = contaDao.selectTodasAsContas();
+        //contaDao.fecharConexao();
         contas.toArray().toString();
 
         view = inflater.inflate(R.layout.fragment_conta, container, false);
@@ -57,9 +58,12 @@ public class ListConta extends Fragment {
                                                  public void onItemClick(
                                                          AdapterView<?> arg0, View arg1, int arg2, long id) {
                                                      int count1 = 0;
-                                                     ContaDao contaDao = new ContaDao(getActivity());
                                                      Conta conta = new Conta();
+
+                                                     ContaDao contaDao =  ContaDao.getInstance(getActivity());
                                                      conta= contaDao.getConta(arg2+1);
+                                                     //contaDao.fecharConexao();
+
                                                      Fragment newFragment = new CadastroConta().newInstance(conta,"Atualizar");
                                                      FragmentTransaction transaction = getFragmentManager().beginTransaction();
                                                      transaction.replace(R.id.content, newFragment);
@@ -76,13 +80,13 @@ public class ListConta extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 Intent it = new Intent(getActivity(), CadastroPessoa.class);
-                startActivity(it);
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .replace(R.id.content, mCadastroConta)
-//                        .addToBackStack(null)
-//                        .commit();
+//                 Intent it = new Intent(getActivity(), CadastroPessoaActivity.class);
+//                startActivity(it);
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, mCadastroConta)
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });

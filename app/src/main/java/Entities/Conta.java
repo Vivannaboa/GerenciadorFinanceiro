@@ -11,11 +11,18 @@ public class Conta {
 
     public Conta(){}
 
+
     public Conta(int id, String nome, String numero) {
         this.id = id;
         this.nome = nome;
         this.numero = numero;
         this.saldo = 0.0;
+    }
+    public Conta(int id, String nome, String numero,double saldo) {
+        this.id = id;
+        this.nome = nome;
+        this.numero = numero;
+        this.saldo = saldo;
     }
 
     public String getNumero() {

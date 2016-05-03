@@ -7,8 +7,19 @@ public class Cidade {
     private int idCidade;
     private Pais pais;
     private String nome;
-    private int codigoDoIbge;
+    private String codigoDoIbge;
     private String uf;
+
+    public Cidade(int idCidade, Pais pais, String nome, String codigoDoIbge, String uf) {
+        this.idCidade = idCidade;
+        this.pais = pais;
+        this.nome = nome;
+        this.codigoDoIbge = codigoDoIbge;
+        this.uf = uf;
+    }
+
+    public Cidade() {
+    }
 
     public int getIdCidade() {
         return idCidade;
@@ -42,11 +53,11 @@ public class Cidade {
         this.uf = uf;
     }
 
-    public int getCodigoDoIbge() {
+    public String getCodigoDoIbge() {
         return codigoDoIbge;
     }
 
-    public void setCodigoDoIbge(int codigoDoIbge) {
+    public void setCodigoDoIbge(String codigoDoIbge) {
         this.codigoDoIbge = codigoDoIbge;
     }
 

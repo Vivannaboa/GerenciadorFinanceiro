@@ -31,7 +31,7 @@ public class CadastroConta extends Fragment {
     private String mParam2="";
     private OnFragmentInteractionListener mListener;
 
-       // para Atualizar um cadastro utilizei uma nova instancia
+    // para Atualizar um cadastro utilizei uma nova instancia
     public static CadastroConta newInstance(Conta conta, String param2) {
         fragment = new CadastroConta();
         Bundle args = new Bundle();
@@ -90,8 +90,9 @@ public class CadastroConta extends Fragment {
                             Conta conta = new Conta();
                             conta.setNome(edtNome.getText().toString());
                             conta.setNumero(edtNumero.getText().toString());
-                            ContaDao contaDao = new ContaDao(getActivity());
-                            contaDao.updateConta(conta,CONTAATUALIZAR.getId());
+                            ContaDao contaDao =  ContaDao.getInstance(getActivity());
+                            contaDao.updateConta(conta);
+                            //contaDao.fecharConexao();
                             edtNome.getText().clear();
                             edtNumero.getText().clear();
                             getFragmentManager().popBackStack();
@@ -107,8 +108,9 @@ public class CadastroConta extends Fragment {
                             Conta conta = new Conta();
                             conta.setNome(edtNome.getText().toString());
                             conta.setNumero(edtNumero.getText().toString());
-                            ContaDao dao= new ContaDao(getActivity());
-                            dao.insertConta(conta);
+                            ContaDao contaDao=  ContaDao.getInstance(getActivity());
+                            contaDao.insertConta(conta);
+                            //contaDao.fecharConexao();
                             edtNome.getText().clear();
                             edtNumero.getText().clear();
                             getFragmentManager().popBackStack();
@@ -149,7 +151,7 @@ public class CadastroConta extends Fragment {
         edtNome.getText().clear();
         edtNumero.getText().clear();
         getFragmentManager().popBackStack();
-       }
+    }
 
 
 }

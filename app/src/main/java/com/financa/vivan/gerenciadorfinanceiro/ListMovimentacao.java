@@ -39,7 +39,7 @@ public class ListMovimentacao extends Fragment implements AbsListView.OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        MovimentacaoDao movimentacaoDao = new MovimentacaoDao(getActivity());
+        MovimentacaoDao movimentacaoDao =  MovimentacaoDao.getInstance(getActivity());
         //Traz os dados do banco
         List<Movimentacao> listMovimentacao = movimentacaoDao.selectTodosOsMovimentacao();
         listMovimentacao.toArray();
@@ -47,7 +47,7 @@ public class ListMovimentacao extends Fragment implements AbsListView.OnItemClic
         mAdapter = new ArrayAdapter<Movimentacao>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, listMovimentacao);
 
-        View view = inflater.inflate(R.layout.fragment_lancamento, container, false);
+        View view = inflater.inflate(R.layout.fragment_movimentacao_list, container, false);
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -58,7 +58,7 @@ public class ListMovimentacao extends Fragment implements AbsListView.OnItemClic
                                              public void onItemClick(
                                                      AdapterView<?> arg0, View arg1, int arg2, long id) {
                                                  int count1 = 0;
-                                                 MovimentacaoDao movimentacaoDao = new MovimentacaoDao(getActivity());
+                                                 MovimentacaoDao movimentacaoDao =  MovimentacaoDao.getInstance(getActivity());
                                                  Movimentacao movimentacao;
                                                  movimentacao = movimentacaoDao.getMovimentacao(arg2 + 1);
                                                  Fragment newFragment = new CadastroMovimentacao().newInstance(movimentacao, "Atualizar");
@@ -102,11 +102,7 @@ public class ListMovimentacao extends Fragment implements AbsListView.OnItemClic
         }
     }
 
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
+
     public void setEmptyText(CharSequence emptyText) {
         View emptyView = mListView.getEmptyView();
 

@@ -3,103 +3,176 @@ package Dao.Localidade;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Dao.ContaDao;
 import Dao.DbHelper;
+import Dao.PessoaDao;
 import DataModel.DataModel;
+import Entities.Localidade.Bairro;
+import Entities.Localidade.Cidade;
 import Entities.Localidade.Endereco;
+import Entities.Localidade.Endereco;
+import Entities.Localidade.Logradouro;
 
 /**
  * Created by vivan on 26/01/2016.
  */
 public class EnderecoDao {
-    private Context context;
-    private static DataModel dataModel = new DataModel();
-//    private final DbHelper dbHelper = new DbHelper(context);
-//    private final ContentValues cv = new ContentValues();
-//    private final BairroDao bairroDao = new BairroDao(context);
-//    private final LogradouroDao logradouroDao = new LogradouroDao(context);
-//    private final CidadeDao cidadeDao = new CidadeDao(context);
 
-    public  EnderecoDao(Context context){
-        this.context=context;
+    public static final String NOME_TABELA = "Endereco";
+    public static final String COLUNA_ID = "id_endereco";
+    public static final String COLUNA_NUMERO = "numero";
+    public static final String COLUNA_COMPLEMENTO = "complemento";
+
+    public static final String CRIAR_TABELA_ENDERECO() {
+        String query = "CREATE TABLE " + NOME_TABELA;
+        query += " (";
+        query += COLUNA_ID+ " " + DataModel.TIPO_INTEIRO_PK + ", ";
+        query += PessoaDao.COLUNA_ID + " " + DataModel.TIPO_INTEIRO + ", ";
+        query += COLUNA_NUMERO + " " + DataModel.TIPO_TEXTO + ", ";
+        query += COLUNA_COMPLEMENTO + " " + DataModel.TIPO_TEXTO + ", ";
+        query += BairroDao.COLUNA_ID + " " + DataModel.TIPO_INTEIRO + ", ";
+        query += LogradouroDao.COLUNA_ID + " " + DataModel.TIPO_INTEIRO + ", ";
+        query += CidadeDao.COLUNA_ID + " " + DataModel.TIPO_INTEIRO + ", ";
+        query += "FOREIGN KEY ("+ BairroDao.COLUNA_ID +") REFERENCES " +BairroDao.NOME_TABELA+"("+BairroDao.COLUNA_ID+"),";
+        query += "FOREIGN KEY ("+ LogradouroDao.COLUNA_ID +") REFERENCES " +LogradouroDao.NOME_TABELA+"("+LogradouroDao.COLUNA_ID+"),";
+        query += "FOREIGN KEY ("+ PessoaDao.COLUNA_ID +") REFERENCES " +PessoaDao.NOME_TABELA+"("+PessoaDao.COLUNA_ID+")";
+        query += "FOREIGN KEY ("+ CidadeDao.COLUNA_ID  +") REFERENCES " +CidadeDao.NOME_TABELA+"("+ ContaDao.COLUNA_ID+")";
+        query += ")";
+        return query;
     }
 
-    public void insertEndereco(Endereco endereco) {
-        DbHelper dbHelper = new DbHelper(context);
-        ContentValues cv = new ContentValues();
-        cv.put(dataModel.getID(dataModel.getTabelaPessoa()),endereco.getIdPessoa());
-        cv.put(dataModel.getNUMERO(), endereco.getNumero());
-        cv.put(dataModel.getCOMPLEMENTO(), endereco.getComplemento());
-        cv.put(dataModel.getID(dataModel.getTabelaBairro()), endereco.getBairro().getIdBairro());
-        cv.put(dataModel.getID(dataModel.getTabelaLogradouro()), endereco.getLogradouro().getIdLogradouro());
-        cv.put(dataModel.getID(dataModel.getTabelaCidade()),endereco.getCidade().getIdCidade());
-        dbHelper.insert(dataModel.getTabelaEndereco(), cv);
-    }
 
-    public void updateEndereco(Endereco endereco, int id) {
-        DbHelper dbHelper = new DbHelper(context);
-        ContentValues cv = new ContentValues();
-        cv.put(dataModel.getID(dataModel.getTabelaPessoa()),endereco.getIdPessoa());
-        cv.put(dataModel.getNUMERO(), endereco.getNumero());
-        cv.put(dataModel.getCOMPLEMENTO(), endereco.getComplemento());
-        cv.put(dataModel.getID(dataModel.getTabelaBairro()), endereco.getBairro().getIdBairro());
-        cv.put(dataModel.getID(dataModel.getTabelaLogradouro()), endereco.getLogradouro().getIdLogradouro());
-        cv.put(dataModel.getID(dataModel.getTabelaCidade()),endereco.getCidade().getIdCidade());
-        dbHelper.update(dataModel.getTabelaEndereco(), cv, dataModel.getID(dataModel.getTabelaEndereco())+ "=" + id);
-    }
-    public void deleteEndereco(int id){
-        DbHelper dbHelper = new DbHelper(context);
-        ContentValues cv = new ContentValues();
-        dbHelper.delete(dataModel.getTabelaEndereco(),dataModel.getID(dataModel.getTabelaEndereco())+ "=" + id);
-    }
+    public static final String SCRIPT_DELECAO_TABELA =  "DROP TABLE IF EXISTS " + NOME_TABELA;
 
-    public Endereco getEndereco(int id) {
-        DbHelper dbHelper = new DbHelper(context);
-        ContentValues cv = new ContentValues();
-        BairroDao bairroDao = new BairroDao(context);
-        LogradouroDao logradouroDao = new LogradouroDao(context);
-        CidadeDao cidadeDao = new CidadeDao(context);
-        String sqlSelectEnderecos = "Select * From " + dataModel.getTabelaEndereco() + " WHERE " +dataModel.getID(dataModel.getTabelaEndereco()) + "=" + id;
-        Cursor c = dbHelper.select(sqlSelectEnderecos);
-        Endereco endereco = new Endereco();
-        if (c.moveToFirst()) {
-            endereco.setIdEndereco(c.getInt(0));
-            endereco.setIdPessoa(c.getInt(1));
-            endereco.setNumero(c.getString(2));
-            endereco.setComplemento(c.getString(3));
-            endereco.setBairro(bairroDao.getBairro(c.getInt(4)));
-            endereco.setLogradouro(logradouroDao.getLogradouro(c.getInt(5)));
-            endereco.setCidade(cidadeDao.getCidade(c.getInt(6)));
+    private SQLiteDatabase dataBase = null;
+    private static Context contexto;
+    private static EnderecoDao instance;
+
+    public static EnderecoDao getInstance(Context context) {
+        if(instance == null) {
+            instance = new EnderecoDao(context);
+            contexto = context;
         }
+        return instance;
+    }
+
+    private EnderecoDao(Context context) {
+        DbHelper dbHelper = DbHelper.getInstance(context);
+        dataBase = dbHelper.getWritableDatabase();
+    }
+    //inserir
+    public void insertEndereco(Endereco endereco) {
+        ContentValues values = gerarContentValeuesEndereco(endereco);
+        dataBase.insert(NOME_TABELA, null, values);
+    }
+    //atualizar
+    public void updateEndereco(Endereco endereco){
+        ContentValues valores = gerarContentValeuesEndereco(endereco);
+
+        String[] valoresParaSubstituir = {
+                String.valueOf(endereco.getIdEndereco())
+        };
+        dataBase.update(NOME_TABELA, valores, COLUNA_ID + " = ?", valoresParaSubstituir);
+    }
+    //apaga
+    public void deleteEndereco(Endereco endereco){
+        String[] valoresParaSubstituir = {
+                String.valueOf(endereco.getIdEndereco())
+        };
+        dataBase.delete(NOME_TABELA, COLUNA_ID + " =  ?", valoresParaSubstituir);
+    }
+    //busca um registro
+    public Endereco getEndereco(int id) {
+        String queryReturnAll = "SELECT * FROM " + NOME_TABELA +" WHERE "+COLUNA_ID+" =" + id;
+        Cursor cursor = dataBase.rawQuery(queryReturnAll, null);
+        List<Endereco> enderecos = construirEnderecoPorCursor(cursor);
+        Endereco endereco = new Endereco();
+        endereco.setIdEndereco(enderecos.get(0).getIdEndereco());
+        endereco.setIdPessoa(enderecos.get(0).getIdPessoa());
+        endereco.setBairro(enderecos.get(0).getBairro());
+        endereco.setCidade(enderecos.get(0).getCidade());
+        endereco.setLogradouro(enderecos.get(0).getLogradouro());
+        endereco.setComplemento(enderecos.get(0).getComplemento());
+        endereco.setNumero(enderecos.get(0).getNumero());
         return endereco;
     }
 
-
-    public List<Endereco> selectTodosOsEnderecos() {
-        DbHelper dbHelper = new DbHelper(context);
-        ContentValues cv = new ContentValues();
-        BairroDao bairroDao = new BairroDao(context);
-        LogradouroDao logradouroDao = new LogradouroDao(context);
-        CidadeDao cidadeDao = new CidadeDao(context);
-        List<Endereco> listaEndereco = new ArrayList<Endereco>();
-        String sqlSelectTodosOsAsEnderecos = "Select * From Endereco";
-        Cursor c = dbHelper.select(sqlSelectTodosOsAsEnderecos);
-        if (c.moveToFirst()) {
-            do {
-                Endereco endereco = new Endereco();
-                endereco.setIdEndereco(c.getInt(0));
-                endereco.setIdPessoa(c.getInt(1));
-                endereco.setNumero(c.getString(2));
-                endereco.setComplemento(c.getString(3));
-                endereco.setBairro(bairroDao.getBairro(c.getInt(4)));
-                endereco.setLogradouro(logradouroDao.getLogradouro(c.getInt(5)));
-                endereco.setCidade(cidadeDao.getCidade(c.getInt(6)));
-                listaEndereco.add(endereco);
-            } while (c.moveToNext());
-        }
+    //retorna Todos
+    public List<Endereco> selectTodosOsEnderecoPessoa(int idPessoa) {
+        String queryReturnAll = "SELECT * FROM " + NOME_TABELA +" WHERE "+PessoaDao.COLUNA_ID+" =" + idPessoa;
+        Cursor cursor = dataBase.rawQuery(queryReturnAll, null);
+        List<Endereco> listaEndereco = construirEnderecoPorCursor(cursor);
         return listaEndereco;
     }
+
+    private List<Endereco> construirEnderecoPorCursor(Cursor cursor) {
+        List<Endereco> enderecos = new ArrayList<Endereco>();
+        BairroDao bairroDao = BairroDao.getInstance(contexto);
+        CidadeDao cidadeDao = CidadeDao.getInstance(contexto);
+        LogradouroDao logradouroDao =LogradouroDao.getInstance(contexto);
+        if(cursor == null)
+            return enderecos;
+        try {
+
+            if (cursor.moveToFirst()) {
+                do {
+                    int indexID = cursor.getColumnIndex(COLUNA_ID);
+                    int indexIdPessoa = cursor.getColumnIndex(PessoaDao.COLUNA_ID);
+                    int indexIdBairro = cursor.getColumnIndex(BairroDao.COLUNA_ID);
+                    int indexIdCidade = cursor.getColumnIndex(CidadeDao.COLUNA_ID);
+                    int indexIdLogradouro = cursor.getColumnIndex(LogradouroDao.COLUNA_ID);
+                    int indexNumero = cursor.getColumnIndex(COLUNA_NUMERO);
+                    int indexComplemento = cursor.getColumnIndex(COLUNA_COMPLEMENTO);
+
+                    int id = cursor.getInt(indexID);
+                    int idPessoa = cursor.getInt(indexIdPessoa);
+                    Bairro bairro = bairroDao.getBairro(cursor.getInt(indexIdBairro));
+                    Cidade cidade = cidadeDao.getCidade(cursor.getInt(indexIdCidade));
+                    Logradouro logradouro = logradouroDao.getLogradouro(cursor.getInt(indexIdLogradouro));
+                    String numero = cursor.getString(indexNumero);
+                    String complemento = cursor.getString(indexComplemento);
+
+                    Endereco endereco = new Endereco(
+                            id,
+                            idPessoa,
+                            bairro,
+                            logradouro,
+                            cidade,
+                            numero,
+                            complemento
+                    );
+
+                    enderecos.add(endereco);
+
+                } while (cursor.moveToNext());
+            }
+
+        } finally {
+            cursor.close();
+        }
+        return enderecos;
+    }
+
+    private ContentValues gerarContentValeuesEndereco(Endereco endereco) {
+        ContentValues values = new ContentValues();
+        values.put(PessoaDao.COLUNA_ID , endereco.getIdPessoa());
+        values.put(COLUNA_NUMERO,endereco.getNumero());
+        values.put(COLUNA_COMPLEMENTO,endereco.getComplemento());
+        values.put(BairroDao.COLUNA_ID,endereco.getBairro().getIdBairro());
+        values.put(LogradouroDao.COLUNA_ID,endereco.getLogradouro().getIdLogradouro());
+        values.put(CidadeDao.COLUNA_ID,endereco.getCidade().getIdCidade());
+        return values;
+    }
+
+    public void fecharConexao() {
+        if(dataBase != null && dataBase.isOpen())
+            dataBase.close();
+    }
+
+
 }

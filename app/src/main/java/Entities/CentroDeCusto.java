@@ -12,10 +12,22 @@ public class CentroDeCusto {
     public CentroDeCusto() {
     }
 
-    public CentroDeCusto(String descricao, String tipoTranzacao, boolean ativo) {
+    public CentroDeCusto(int id,String descricao, String tipoTranzacao, int ativo) {
+        this.id = id;
         this.descricao = descricao;
         this.tipoTranzacao = tipoTranzacao;
-        this.ativo = ativo;
+        if (ativo==1) {
+            this.ativo = true;
+        }else{
+            this.ativo = false;
+        }
+    }
+
+    public CentroDeCusto(int id, String descricao, String tipoTranzacao, boolean ativo) {
+        this.id = id;
+        this.descricao = descricao;
+        this.tipoTranzacao = tipoTranzacao;
+        this.ativo = true;
     }
 
     public String getTipoTranzacao() {

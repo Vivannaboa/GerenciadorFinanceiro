@@ -7,6 +7,14 @@ public class Bairro {
     private int idBairro;
     private String descricao;
 
+    public Bairro(int idBairro, String descricao) {
+        this.idBairro = idBairro;
+        this.descricao = descricao;
+    }
+
+    public Bairro() {
+    }
+
     public int getIdBairro() {
         return idBairro;
     }
